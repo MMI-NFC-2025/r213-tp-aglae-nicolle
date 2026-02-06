@@ -26,3 +26,27 @@ export async function getOffre(id) {
         return null;
     }
 }
+
+export async function bySurface(surface) {
+    try {
+        const data = await db.collection('maison').getFullList({
+            filter: `surface >= ${surface}`,
+        });
+        return data.items;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant les maisons par surface', error);
+        return [];
+    }
+}
+
+export async function offreFavori() {
+    try {
+        const data = await db.collection('maison').getFullList({
+            filter: `favori = true`,
+        });
+        return data.items;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant les maisons favorites', error);
+        return [];
+    }
+}

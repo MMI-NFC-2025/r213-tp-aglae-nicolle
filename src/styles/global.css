@@ -20,8 +20,6 @@ h1 {
     padding: 7px 14px;
     border-radius: 10px;
     cursor: pointer;
-    position: fixed;
-    right: 5px;
 }
 
 .offre-card {

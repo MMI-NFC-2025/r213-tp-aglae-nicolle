@@ -1,0 +1,17 @@
+---
+import { bySurface } from "../../backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/OffreCard.astro";
+
+const surfaceParam = Number.parseFloat(Astro.params.surface ?? "80");
+const surfaceValue = Number.isNaN(surfaceParam) ? 80 : surfaceParam;
+const offres = await bySurface(surfaceValue);
+---
+
+<Layout>
+    <h2>Offres de maisons faisant plus de {surfaceValue} m²</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {offres.map((offre: any) => <Card offre={offre} />)}
+    </div>
+</Layout>

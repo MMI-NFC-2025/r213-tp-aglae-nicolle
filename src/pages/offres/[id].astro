@@ -1,14 +1,26 @@
 ---
-import * as backend from "../../backend.mjs";
+import { getOffre } from "../../backend.mjs";
+import PbImage from "../../components/PbImage.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const { id } = Astro.params;
-const offre = await backend.getOffre(id);
+const offre = await getOffre(id);
+
+if (!offre) {
+    return Astro.redirect("/offres");
+}
 ---
 
 <Layout titre={offre.nomMaison}>
     <h2>{offre.nomMaison}</h2>
     <ul>
+        {
+            offre.images.map((image: any) => (
+                <li>
+                    <PbImage record={offre} recordImage={image} />
+                </li>
+            ))
+        }
         <li>{offre.adresse}</li>
         <li>{offre.prix}</li>
         <li>{offre.nbChambres}</li>

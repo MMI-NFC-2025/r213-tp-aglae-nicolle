@@ -1,28 +1,33 @@
 ---
+import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
-import OffreCard from "../../components/OffreCard.astro";
-import * as backend from "../../backend.mjs";
-import "astro:assets";
-
-const offres = await backend.getOffres();
+import Card from "../../components/OffreCard.astro";
+import { getOffres } from "../../backend.mjs";
+const offres = await getOffres();
 ---
 
 <Layout titre="Offres">
-    <h1>Offres</h1>
+    <h1 class="text-6xl font-bold text-blue-500 text-center mt-8 mb-8">
+        Offres
+    </h1>
+
+    <button
+        class="mt-3 mb-5 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors"
+    >
+        <a href="/offres/80"
+            >Voir les offres avec une surface de 80 m² ou plus
+        </a>
+    </button>
+
     <button
         id="favori-button"
-        class="bg-slate-600 rounded-lg text-white p-2 button"
+        class="bg-orange-400 rounded-lg text-white p-2 m-5"
         >Afficher les favoris</button
     >
-    <ul>
-        {
-            offres.map((offre) => (
-                <li class="offre" data-favori={offre.favori.toString()}>
-                    <OffreCard class="offre-card" offre={offre} />
-                </li>
-            ))
-        }
-    </ul>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {offres.map((offre) => <Card offre={offre} />)}
+    </div>
 </Layout>
 
 <script>
@@ -31,17 +36,17 @@ const offres = await backend.getOffres();
 
     button?.addEventListener("click", () => {
         showOnlyFavorites = !showOnlyFavorites;
-        const offres = document.querySelectorAll(".offre");
+        const offres: NodeListOf<HTMLElement> =
+            document.querySelectorAll(".offre");
 
         offres.forEach((offre) => {
-            const htmlElement = offre as HTMLElement;
-            const isFavori = htmlElement.dataset.favori === "true";
+            const isFavori = offre.dataset.favori === "true";
 
             if (showOnlyFavorites) {
-                htmlElement.style.display = isFavori ? "block" : "none";
+                offre.style.display = isFavori ? "block" : "none";
                 button.textContent = "Afficher tout";
             } else {
-                htmlElement.style.display = "block";
+                offre.style.display = "block";
                 button.textContent = "Afficher les favoris";
             }
         });
