@@ -1,0 +1,11 @@
+---
+import "../styles/global.css";
+import PbImage from "./PbImage.astro";
+
+const offre = Astro.props.offre;
+---
+
+<li>
+    <PbImage record={offre} recordImage={offre.images[0]} />
+    <h2>{offre.nomMaison}</h2>
+</li>
