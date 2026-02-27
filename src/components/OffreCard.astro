@@ -5,8 +5,8 @@ import PbImage from "./PbImage.astro";
 const offre = Astro.props.offre;
 ---
 
-<li>
+<li class="offre" data-favori={offre.favori}>
     <PbImage record={offre} recordImage={offre.images[0]} />
     <h2>{offre.nomMaison}</h2>
-    <a href={`/offres/${offre.id}`}>Voir plus</a>
+    <a href={`/offres/id/${offre.id}`}>Voir plus</a>
 </li>

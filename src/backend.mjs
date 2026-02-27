@@ -32,7 +32,7 @@ export async function bySurface(surface) {
         const data = await db.collection('maison').getFullList({
             filter: `surface >= ${surface}`,
         });
-        return data.items;
+        return data;
     } catch (error) {
         console.log('Une erreur est survenue en lisant les maisons par surface', error);
         return [];
@@ -44,7 +44,7 @@ export async function offreFavori() {
         const data = await db.collection('maison').getFullList({
             filter: `favori = true`,
         });
-        return data.items;
+        return data;
     } catch (error) {
         console.log('Une erreur est survenue en lisant les maisons favorites', error);
         return [];
@@ -64,5 +64,29 @@ export async function addOffre(house) {
             success: false,
             message: 'Une erreur est survenue en ajoutant la maison'
         };
+    }
+}
+
+export async function filterByPrix(minPrix, maxPrix) {
+    try {
+        const data = await db.collection('maison').getFullList({
+            filter: `prix >= ${minPrix} && prix <= ${maxPrix}`,
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en filtrant les maisons par prix', error);
+        return [];
+    }
+}
+
+export async function filterBySurface(surface) {
+    try {
+        const data = await db.collection('maison').getFullList({
+            filter: `surface >= ${surface}`,
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en filtrant les maisons par surface', error);
+        return [];
     }
 }

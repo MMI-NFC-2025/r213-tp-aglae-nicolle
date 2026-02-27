@@ -1,9 +1,28 @@
 ---
-import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/OffreCard.astro";
 import { getOffres } from "../../backend.mjs";
-const offres = await getOffres();
+import { filterByPrix } from "../../backend.mjs";
+let message = "";
+const Offres = await getOffres();
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt((data.get("minPrix") as string) || "0");
+    const maxPrix = parseInt((data.get("maxPrix") as string) || "0");
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        const Offres = await filterByPrix(minPrix, maxPrix);
+        if (Offres === null) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+    }
+} else {
+    const Offres = await getOffres();
+}
 ---
 
 <Layout titre="Offres">
@@ -14,7 +33,7 @@ const offres = await getOffres();
     <button
         class="mt-3 mb-5 bg-blue-500 hover:bg-blue-600 textet-whi px-4 py-2 rounded text-sm transition-colors"
     >
-        <a href="/offres/80"
+        <a href="/offres/surface/80"
             >Voir les offres avec une surface de 80 m² ou plus
         </a>
     </button>
@@ -29,9 +48,14 @@ const offres = await getOffres();
     >
         <a href="/offres/add">Ajouter une offre </a>
     </button>
+    <form action="/offres" method="POST">
+        <input type="number" name="minPrix" placeholder="Prix minimum" />
+        <input type="number" name="maxPrix" placeholder="Prix maximum" />
+        <input type="submit" value="Filtrer par prix" />
+    </form>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {offres.map((offre) => <Card offre={offre} />)}
+        {Offres.map((offre) => <Card offre={offre} />)}
     </div>
 </Layout>
 

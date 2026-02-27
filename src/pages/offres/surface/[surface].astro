@@ -1,7 +1,7 @@
 ---
-import { bySurface } from "../../backend.mjs";
-import Layout from "../../layouts/Layout.astro";
-import Card from "../../components/OffreCard.astro";
+import { bySurface } from "../../../backend.mjs";
+import Layout from "../../../layouts/Layout.astro";
+import Card from "../../../components/OffreCard.astro";
 
 const surfaceParam = Number.parseFloat(Astro.params.surface ?? "80");
 const surfaceValue = Number.isNaN(surfaceParam) ? 80 : surfaceParam;
