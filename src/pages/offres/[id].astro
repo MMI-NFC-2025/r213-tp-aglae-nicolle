@@ -26,7 +26,6 @@ if (!offre) {
         <li>{offre.nbChambres}</li>
         <li>{offre.nbSdb}</li>
         <li>{offre.surface}</li>
-        <li>{offre.favori}</li>
-        <li>{offre.favori}</li>
+        {offre.favori ? <li>Favori</li> : <li>Non favori</li>}
     </ul>
 </Layout>
