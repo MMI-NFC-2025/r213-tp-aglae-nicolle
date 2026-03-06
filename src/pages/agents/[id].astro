@@ -1,0 +1,21 @@
+---
+import { getAgentById } from "../js/backend.mjs";
+import { byAgentId } from "../js/backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/OffreCard.astro";
+
+const { id } = Astro.params;
+const agent = await getAgentById(id);
+const offres = byAgentId(id);
+
+if (!agent) {
+    return Astro.redirect("/agents");
+}
+---
+
+<Layout titre=`${agent.nom} ${agent.prenom}`>
+    <h2>{agent.nom} {agent.prenom}</h2>
+    <div>
+        {offres.map((offre) => <Card offre={offre} />)}
+    </div>
+</Layout>

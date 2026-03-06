@@ -177,9 +177,13 @@ export async function userAuth(login, mdp) {
 
 export async function byAgentId(id) {
     try {
-        return await db.collection('agent').getOne(id);
+        let data = await db.collection('maison').getFullList({
+            filter: `agent=${id}`,
+        });
+        return data;
     } catch (e) {
         console.error(e);
+        return [];
     }
 }
 
@@ -189,5 +193,13 @@ export async function getAgents() {
     } catch (e) {
         console.error(e);
         return [];
+    }
+}
+
+export async function getAgentById(id) {
+    try {
+        return await db.collection('agent').getOne(id);
+    } catch (e) {
+        console.error(e);
     }
 }
