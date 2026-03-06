@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { addOffre } from "../../backend.mjs";
+import { addOffre } from "../js/backend.mjs";
 let message = "";
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();

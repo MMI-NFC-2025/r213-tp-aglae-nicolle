@@ -1,0 +1,9 @@
+---
+import "../styles/global.css";
+
+const agent = Astro.props.agent;
+---
+
+<li>
+    <a href=`/agent/${agent.id}`>{agent.nom} {agent.prenom}</a>
+</li>

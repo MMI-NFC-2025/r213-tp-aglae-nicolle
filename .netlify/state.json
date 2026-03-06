@@ -1,20 +1,14 @@
 {
 	"geolocation": {
 		"data": {
-			"city": "Besançon",
 			"country": {
 				"code": "FR",
 				"name": "France"
 			},
-			"subdivision": {
-				"code": "BFC",
-				"name": "Bourgogne"
-			},
 			"timezone": "Europe/Paris",
-			"latitude": 47.2455,
-			"longitude": 6.0209,
-			"postalCode": "25000"
+			"latitude": 48.8582,
+			"longitude": 2.3387
 		},
-		"timestamp": 1769764625170
+		"timestamp": 1772783443732
 	}
 }

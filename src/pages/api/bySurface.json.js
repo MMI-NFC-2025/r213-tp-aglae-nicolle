@@ -1,4 +1,4 @@
-import * as backend from "../../backend.mjs";
+import * as backend from "../js/backend.mjs";
 
 export async function GET({ searchParams }) {
     const surface = searchParams.get("surface") || 80;
